@@ -109,5 +109,6 @@ MIT — free to use, modify, and distribute.
 
 ## 🙌 Credits
 
-Created and maintained by @norregaard
+Created and maintained by @norregaard.
+
 Financial data via public APIs and yfinance
