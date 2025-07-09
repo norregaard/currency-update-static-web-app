@@ -147,6 +147,21 @@ def build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, a
             <img src="./Logo_jfn_github.png" alt="Logo">
             <p>Generated on {timestamp} CET by GitHub Actions.</p>
         </div>
+        <button onclick="location.reload()" style="
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            background-color: #007aff;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            z-index: 9999;
+        ">
+            🔄 Refresh
+        </button>
     </body>
     </html>
     """
