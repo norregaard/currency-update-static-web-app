@@ -11,11 +11,8 @@ jobs:
     name: Generate HTML report into /dist
 
     steps:
-      - name: Checkout repository (report-output branch)
+      - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: report-output
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,11 +29,10 @@ jobs:
         env:
           METAL_API_KEY: ${{ secrets.METAL_API_KEY }}
 
-      - name: Commit and push /dist folder to report-output branch
+      - name: Commit and push /dist folder
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git switch -C report-output
           git add dist/index.html dist/Logo_jfn_github.png
           git commit -m "🤖 Update daily currency report"
-          git push --force origin report-output
+          git push

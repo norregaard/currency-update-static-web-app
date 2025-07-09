@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: report-output      # <-- checkout report-output branch
           submodules: true
           lfs: false
 
