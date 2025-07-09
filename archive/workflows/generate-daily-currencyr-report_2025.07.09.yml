@@ -37,23 +37,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Backup dist folder safely
-          mv dist .dist-temp
+          # Backup dist folder
+          mv dist dist-temp
 
-          # Switch to report-output branch (must already exist)
-          git switch report-output
+          # Switch to report-output branch
+          git switch -C report-output
 
-          # Clean all except .git and dist backup
-          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .dist-temp -exec rm -rf {} +
+          # Replace old dist with new
+          rm -rf dist
+          mv dist-temp dist
 
-          # Restore new dist folder
-          mv .dist-temp dist
-
-          # Commit if changes exist
           git add dist/
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "🤖 Update daily currency report"
-            git push origin report-output
+            git push --force origin report-output
           fi
