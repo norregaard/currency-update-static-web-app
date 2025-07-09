@@ -1,4 +1,4 @@
-# 💱 Currency Report – Daily Static Web App
+# 💱 Currency Report – Daily Report in Static Web App
 
 This project generates a daily currency and gold price report as a static HTML page using Python and GitHub Actions. The report is automatically deployed to Azure Static Web Apps and served via a custom domain.
 
