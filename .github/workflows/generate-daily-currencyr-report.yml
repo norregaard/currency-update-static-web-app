@@ -40,8 +40,11 @@ jobs:
           # Backup dist folder safely
           mv dist .dist-temp
 
-          # Switch to report-output branch (must already exist)
-          git switch report-output
+          # Switch to remote report-output branch
+          git switch --track origin/report-output
+
+          # ✅ Confirm the current branch (for debugging/logging)
+          git branch --show-current
 
           # Clean all except .git and dist backup
           find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .dist-temp -exec rm -rf {} +
