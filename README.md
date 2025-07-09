@@ -83,6 +83,8 @@ open dist/index.html  # or use your browser
 
 ## 📁 Project Structure
 
+
+```
 .
 ├── dist/                         # Final HTML and assets
 │   ├── index.html
@@ -95,6 +97,7 @@ open dist/index.html  # or use your browser
 │       └── azure-static-web-apps.yml
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
