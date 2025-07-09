@@ -41,7 +41,8 @@ jobs:
           mv dist .dist-temp
 
           # Switch to remote report-output branch
-          git switch --track origin/report-output
+          git fetch origin report-output
+          git switch report-output
 
           # ✅ Confirm the current branch (for debugging/logging)
           git branch --show-current
