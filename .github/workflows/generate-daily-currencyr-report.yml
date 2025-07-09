@@ -37,6 +37,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git switch -C report-output
-          git add dist/index.html dist/Logo_jfn_github.png
-          git commit -m "🤖 Update daily currency report"
-          git push --force origin report-output
+          git add dist/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "🤖 Update daily currency report"
+            git push --force origin report-output
+          fi
