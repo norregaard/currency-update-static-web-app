@@ -11,10 +11,10 @@ jobs:
     name: Generate HTML report into /dist
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout repository (report-output branch)
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: report-output
           fetch-depth: 0
 
       - name: Set up Python
@@ -36,17 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Backup dist folder
-          mv dist dist-temp
-
-          # Switch to report-output branch
           git switch -C report-output
-
-          # Replace old dist with new
-          rm -rf dist
-          mv dist-temp dist
-
           git add dist/
           if git diff --cached --quiet; then
             echo "No changes to commit."
