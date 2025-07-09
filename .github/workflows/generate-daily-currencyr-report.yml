@@ -40,9 +40,19 @@ jobs:
           # Backup dist folder safely
           mv dist .dist-temp
 
-          # Switch to remote report-output branch
+          # Fetch the remote branch
           git fetch origin report-output
-          git switch report-output
+
+          # Check if the local branch exists
+          if git show-ref --verify --quiet refs/heads/report-output; then
+            # If exists, switch to it
+            git switch report-output
+            # Reset local branch to remote (clean slate, includes deletions)
+            git reset --hard origin/report-output
+          else
+            # Create local branch tracking remote branch
+            git switch -c report-output origin/report-output
+          fi
 
           # ✅ Confirm the current branch (for debugging/logging)
           git branch --show-current
