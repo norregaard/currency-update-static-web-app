@@ -151,24 +151,36 @@ def build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, a
                     {rows}
                 </tbody>
             </table>
-            <img src="./Logo_jfn_github.png" alt="Logo">
+                <div style="text-align: center; margin-top: 24px;">
+                <button onclick="location.href='crypto.html'" style="
+                    padding: 10px 16px;
+                    font-size: 16px;
+                    border-radius: 8px;
+                    border: none;
+                    background-color: #007aff;
+                    color: white;
+                    margin-right: 10px;
+                    cursor: pointer;
+                ">
+                    📈 Go to Crypto Tracker
+                </button>
+                <button onclick="location.reload()" style="
+                    padding: 10px 16px;
+                    font-size: 16px;
+                    border-radius: 8px;
+                    border: none;
+                    background-color: #007aff;
+                    color: white;
+                    cursor: pointer;
+                ">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <img src="./Logo_jfn_github.png" alt="Logo" style="margin-top: 20px;">
             <p>Generated on {timestamp} CET by GitHub Actions.</p>
+            
         </div>
-        <button onclick="location.reload()" style="
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 14px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: none;
-            background-color: #007aff;
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            z-index: 9999;
-        ">
-            🔄 Refresh
-        </button>
     </body>
     </html>
     """
