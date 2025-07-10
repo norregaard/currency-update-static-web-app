@@ -171,6 +171,19 @@ def build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, a
             ">
                 📈 Go to Crypto Tracker
             </button>
+            <button onclick="location.href='10x.html" style="
+                padding: 10px 16px;
+                font-size: 16px;
+                border-radius: 8px;
+                border: none;
+                background-color: #007aff;
+                color: white;
+                cursor: pointer;
+                flex: 1 1 200px;
+                max-width: 250px;
+            ">
+                🚀 10X Your Life!
+            </button>
             <button onclick="location.reload()" style="
                 padding: 10px 16px;
                 font-size: 16px;
