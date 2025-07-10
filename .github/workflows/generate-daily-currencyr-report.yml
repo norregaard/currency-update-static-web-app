@@ -9,6 +9,7 @@ jobs:
   generate_report:
     runs-on: ubuntu-latest
     name: Generate HTML report into /dist
+    environment: production  # Deploy to production environment
 
     steps:
       - name: Checkout main branch
