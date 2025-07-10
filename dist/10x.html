@@ -2,183 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>10X Your Life</title>
+  <title>🚀 10X Your Life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: white;
-      color: #333;
+      font-family: 'Arial Black', Gadget, sans-serif;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: #fff;
       margin: 0;
       padding: 20px;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 10px;
-    }
-    h1, h2 {
       text-align: center;
+    }
+    h1 {
+      font-size: 2.4rem;
+      color: #00ffcc;
+      text-shadow: 2px 2px 5px #000;
     }
     ul {
-      margin-top: 20px;
-      font-size: 1.1rem;
+      list-style-type: none;
+      padding: 0;
+      font-size: 1.2rem;
     }
     li {
-      margin-bottom: 12px;
+      background-color: rgba(0, 0, 0, 0.3);
+      margin: 10px auto;
+      padding: 12px;
+      max-width: 600px;
+      border-radius: 12px;
+      border: 2px solid #00ffcc;
     }
     button {
-      margin: 10px;
-      padding: 12px 18px;
-      font-size: 16px;
-      border-radius: 8px;
+      margin-top: 20px;
+      padding: 14px 24px;
+      font-size: 1.1rem;
+      border-radius: 10px;
       border: none;
-      background-color: #007aff;
+      background-color: #ff0080;
       color: white;
       cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
-    .actions {
-      text-align: center;
-      margin-top: 30px;
-    }
-    #popup {
+    #rickAudio {
       display: none;
-      background: #ffd6d6;
-      border: 2px solid red;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: bold;
-      color: red;
-      max-width: 400px;
-      margin: 20px auto;
     }
-    canvas {
-      max-width: 100%;
-      margin: 20px auto;
+    img {
+      max-width: 90%;
+      margin: 40px auto;
       display: block;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffcc;
     }
-    .price {
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      color: #fff;
       text-align: center;
-      font-size: 1.1rem;
-      margin: 10px 0;
+      padding-top: 20%;
+      font-size: 1.4rem;
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 10X Your Life!</h1>
+  <h1>🚀 10X Your Life: Ultimate Masterclass</h1>
+  <ul>
+    <li>Wake up at 3:59 AM — beat the sun into submission.</li>
+    <li>Cold showers build discipline. If you're not shivering, you're not living.</li>
+    <li>Your tears = preworkout. Drink them. Go harder.</li>
+    <li>Real men invest in DOGE before breakfast.</li>
+    <li>Pain is weakness leaving the body. Embrace it.</li>
+    <li>“Hawk Tuah!” — channel the meme energy into your gains 💦</li>
+    <li>What would Marcus Aurelius do? Conquer markets and your emotions.</li>
+    <li>Buy the dip. Sell your doubt. Repeat until alpha.</li>
+    <li>Read 12 books a day. Or pretend. Perception = reality.</li>
+    <li>If you didn’t get rich today, did you even hustle?</li>
+    <li>Every day is leg day, get those quads jacked!</li>
+  </ul>
 
-    <h2>🔥 The 10 Commandments of Ultimate Winners:</h2>
-    <ul>
-      <li>1. Wake up at 4AM or don't bother waking up at all</li>
-      <li>2. Invest in crypto based on vibes, not fundamentals</li>
-      <li>3. Drink raw eggs. Cry? Drink your tears too.</li>
-      <li>4. Pain is weakness leaving the body. Embrace it.</li>
-      <li>5. Buy the dip. Then buy the double dip.</li>
-      <li>6. If Caesar could conquer Gaul, you can quit sugar</li>
-      <li>7. Hawk Tuah that thang into your portfolio (buy $HAWK)</li>
-      <li>8. Go harder. Again. No, HARDER!</li>
-      <li>9. Meditate for 60 seconds. That’s discipline, baby.</li>
-      <li>10. Winners aren’t born. They're minted — like NFTs.</li>
-    </ul>
+  <button onclick="toggleAudio()">🎵 Toggle Sound</button>
+  <button onclick="showModal()">🔥 Sign up for Master Class!</button>
 
-    <div class="price" id="hawk-price">Fetching $HAWK price...</div>
+  <audio id="rickAudio" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
 
-    <canvas id="disciplineChart" width="400" height="200"></canvas>
-
-    <div class="actions">
-      <button onclick="location.href='index.html'">⬅ Back to Report</button>
-      <button onclick="toggleSound()">🎵 Toggle Sound</button>
-      <button onclick="triggerMasterClass()">💼 Sign up for Master Class!</button>
-    </div>
-
-    <div id="popup">🧠 You have been evaluated by the AI Uber bot.<br>It concludes that you are a <b>weak, weak man</b>.<br>Application thrown in the trash.<br>AI bot spits on it!</div>
-
-    <img src="lambo.jpeg" alt="Lambo" style="width:100%; margin-top: 20px;">
-    <audio id="rickAudio" src="rickroll.mp3" preload="auto"></audio>
+  <div class="modal" id="aiModal">
+    🤖 You have been evaluated by the AI Uber Bot.<br><br>
+    Verdict: <b>You are a weak, weak man.</b><br>
+    Application rejected.<br>
+    AI bot spits on it. 💦💢
   </div>
 
+  <img src="./masterclass.png" alt="Masterclass Promo">
+
   <script>
-    // Sound toggle
-    function toggleSound() {
+    function toggleAudio() {
       const audio = document.getElementById("rickAudio");
       if (audio.paused) {
         audio.play();
       } else {
         audio.pause();
-        audio.currentTime = 0;
       }
     }
 
-    // Confetti + insult popup
-    function triggerMasterClass() {
-      const popup = document.getElementById("popup");
-      popup.style.display = "block";
-
-      // Confetti burst
-      for (let i = 0; i < 100; i++) {
-        const confetti = document.createElement("div");
-        confetti.textContent = "💸";
-        confetti.style.position = "fixed";
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.top = Math.random() * 100 + "vh";
-        confetti.style.fontSize = Math.random() * 24 + 12 + "px";
-        confetti.style.animation = "fall 1s ease-out forwards";
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 1000);
-      }
+    function showModal() {
+      const modal = document.getElementById("aiModal");
+      modal.style.display = "block";
+      setTimeout(() => modal.style.display = "none", 6000);
     }
-
-    // Hawk Tuah Coin price
-    async function fetchHawkPrice() {
-      try {
-        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=hawk-tuah&vs_currencies=usd");
-        const data = await res.json();
-        const price = data["hawk-tuah"]?.usd;
-        document.getElementById("hawk-price").innerText = price
-          ? `Current $HAWK Price: $${price}`
-          : "Could not fetch $HAWK price.";
-      } catch {
-        document.getElementById("hawk-price").innerText = "API failed. Just buy it anyway.";
-      }
-    }
-
-    // Fake discipline chart
-    function loadDisciplineChart() {
-      const ctx = document.getElementById('disciplineChart').getContext('2d');
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: Array.from({length: 12}, (_, i) => `Month ${i+1}`),
-          datasets: [{
-            label: 'Discipline Index',
-            data: Array.from({length: 12}, () => Math.random() * 20 + 80),
-            borderColor: '#28a745',
-            fill: false,
-            tension: 0.3
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: { beginAtZero: true, max: 120 }
-          }
-        }
-      });
-    }
-
-    // Init
-    fetchHawkPrice();
-    loadDisciplineChart();
   </script>
-
-  <style>
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-  </style>
 </body>
 </html>
