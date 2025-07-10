@@ -1,21 +1,21 @@
 name: Deploy to Azure Static Web App - Staging
 
-on:
-  push:
-    branches: 
-      - staging  # ✅ trigger on push to staging branch
-  workflow_dispatch:  # Optional: manual trigger
-
 #on:
-#  workflow_run:
-#    workflows: ["Generate Daily Currency Report - Staging"]  # ✅ exact name match checked
-#    types:
-#      - completed
-#  workflow_dispatch:  # Optional: manual trigger  
+#  push:
+#    branches: 
+#      - staging  # ✅ trigger on push to staging branch
+#  workflow_dispatch:  # Optional: manual trigger
+
+on:
+  workflow_run:
+    workflows: ["Generate Daily Currency Report - Staging"]  # ✅ exact name match
+    types:
+      - completed
+  workflow_dispatch:  # Optional: manual trigger  
 
 jobs:
   deploy_staging_job:
-    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     name: Deploy Dist Folder to Azure (Staging)
 
