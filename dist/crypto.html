@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crypto Prices & Charts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
+    .price-wrapper {
+      overflow-x: auto;
+    }
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      min-width: 400px;
+    }
+    .price-table td, .price-table th {
+      padding: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      text-align: left;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .filter, .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 8px 14px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #007aff;
+      color: white;
+      cursor: pointer;
+    }
+    button.active {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Crypto Market Tracker</h2>
+
+    <div class="filter">
+      <button id="btn-7d" class="active">Last 7 Days</button>
+      <button id="btn-30d">Last 30 Days</button>
+      <button id="btn-1y">Last 1 Year</button>
+    </div>
+
+    <div class="price-wrapper">
+      <table class="price-table" id="crypto-prices">
+        <tr><th>Crypto</th><th>USD</th><th>DKK</th></tr>
+      </table>
+    </div>
+
+    <canvas id="cryptoChart"></canvas>
+
+    <div class="nav">
+      <button onclick="location.href='index.html'">⬅ Back to Currency Report</button>
+      <button onclick="location.href='btc.html'">₿ BTC Page</button>
+      <button onclick="refresh()">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <script>
+    const coins = ["bitcoin", "ethereum", "dogecoin"];
+    let currentDays = 7;
+    let chart;
+
+    async function fetchPrices() {
+      const url = "https://api.coingecko.com/api/v3/simple/price";
+      const params = new URLSearchParams({
+        ids: coins.join(","),
+        vs_currencies: "usd,dkk"
+      });
+      const res = await fetch(`${url}?${params}`);
+      return await res.json();
+    }
+
+    async function fetchHistory(days) {
+      const url = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart";
+      const params = new URLSearchParams({ vs_currency: "usd", days: days });
+      const res = await fetch(`${url}?${params}`);
+      return (await res.json()).prices;
+    }
+
+    function updatePricesTable(prices) {
+      const table = document.getElementById("crypto-prices");
+      table.innerHTML = `<tr><th>Crypto</th><th>USD</th><th>DKK</th></tr>`;
+      coins.forEach(id => {
+        const p = prices[id];
+        if (p) {
+          table.innerHTML += `
+            <tr>
+              <td>${id.charAt(0).toUpperCase() + id.slice(1)}</td>
+              <td>${p.usd.toLocaleString("en-US", { style: "currency", currency: "USD" })}</td>
+              <td>${p.dkk.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}</td>
+            </tr>`;
+        }
+      });
+    }
+
+    function updateChart(history) {
+      const ctx = document.getElementById("cryptoChart").getContext("2d");
+      const labels = history.map(p => {
+        const d = new Date(p[0]);
+        return `${d.getMonth() + 1}/${d.getDate()}`;
+      });
+      const data = history.map(p => p[1]);
+
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: `BTC Price (USD)`,
+            data,
+            borderColor: "#007aff",
+            fill: false,
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              ticks: {
+                callback: v => `$${v.toFixed(0)}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    async function refresh() {
+      const prices = await fetchPrices();
+      updatePricesTable(prices);
+      const history = await fetchHistory(currentDays);
+      updateChart(history);
+    }
+
+    document.getElementById("btn-7d").onclick = () => { currentDays = 7; setActive(7); refresh(); };
+    document.getElementById("btn-30d").onclick = () => { currentDays = 30; setActive(30); refresh(); };
+    document.getElementById("btn-1y").onclick = () => { currentDays = 365; setActive(365); refresh(); };
+
+    function setActive(days) {
+      document.getElementById("btn-7d").classList.remove("active");
+      document.getElementById("btn-30d").classList.remove("active");
+      document.getElementById("btn-1y").classList.remove("active");
+      if (days == 7) document.getElementById("btn-7d").classList.add("active");
+      if (days == 30) document.getElementById("btn-30d").classList.add("active");
+      if (days == 365) document.getElementById("btn-1y").classList.add("active");
+    }
+
+    // Initial load
+    refresh();
+  </script>
+</body>
+</html>

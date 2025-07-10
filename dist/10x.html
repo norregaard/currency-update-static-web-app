@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🚀 10X Your Life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial Black', Gadget, sans-serif;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.4rem;
+      color: #00ffcc;
+      text-shadow: 2px 2px 5px #000;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      font-size: 1.2rem;
+    }
+    li {
+      background-color: rgba(0, 0, 0, 0.3);
+      margin: 10px auto;
+      padding: 12px;
+      max-width: 600px;
+      border-radius: 12px;
+      border: 2px solid #00ffcc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 14px 24px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: none;
+      background-color: #ff0080;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    #rickAudio {
+      display: none;
+    }
+    img {
+      max-width: 90%;
+      margin: 40px auto;
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      color: #fff;
+      text-align: center;
+      padding-top: 20%;
+      font-size: 1.4rem;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 10X Your Life: Ultimate Masterclass</h1>
+  <p style="max-width: 700px; margin: 20px auto; font-size: 1.2rem; line-height: 1.6;">
+  Welcome to the only masterclass that slaps you awake, screams ancient Stoicism in your face, and tosses protein bars at your soul.  
+  In just **10 explosive steps**, you’ll be primed to dominate the markets, the gym, and your enemies — all before lunch.  
+  No refunds. No mercy. Just results. 💥
+  </p>
+  <ul>
+    <li>🌅 1. Not up before the sun rises? Alpha be hitting PRs in their dreams.</li>
+    <li>🐶💰 2. Real men invest in NFTs before breakfast.</li>
+    <li>💧💪 3. Your tears = preworkout. Drink them. Go harder.</li>
+    <li>📞📉 4. Blew my portfolio on margin calls. That’s not a loss — that’s the grindset.</li>
+    <li>🔥🩸 5. Pain is your inner beta getting evicted. Embrace the chaos.</li>
+    <li>🎤💦 6. “Hawk Tuah!” — channel that saucy meme energy into your gainz 💦</li>
+    <li>🏛️🧠 7. What would Marcus Aurelius do? Conquer markets and your anxiety</li>
+    <li>📉🚀 8. Buy the dip. Buy the double dip. Sell your doubt. Repeat until alpha.</li>
+    <li>📚😎 9. Read 12 books a day. Or pretend. Perception = reality.</li>
+    <li>💸🤨 10. If you didn’t stack six figures before lunch, you’re just LARPing success, bro (live action role-play, boomer).</li>
+  </ul>
+
+  <button id="audioToggleBtn" onclick="toggleAudio()">🔇 Sound OFF</button>
+  <button onclick="showModal()">🔥 Sign up for Master Class!</button>
+
+  <p style="font-size: 0.9rem; color: #aaa; margin-top: 30px;">
+  ⚠️ Disclaimer: Signing up for this master class is 100% guaranteed to make you both jacked and a millionaire.*  
+  <br><span style="font-size: 0.75rem;">*Guarantee based on vibes and delusion, not facts. Results may vary if you're weak. Like a little girl.</span>
+  </p>
+
+  <audio id="rickAudio" loop preload="auto">
+    <source src="rickroll.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+
+  <div class="modal" id="aiModal">
+    🤖 You have been evaluated by the AI uber bot.<br><br>
+    Swift conclusion: <b>You are a weak, weak man.</b><br>
+    Application rejected.<br>
+    AI bot spits on it. 💦💢
+  </div>
+
+  <img src="./masterclass.png" alt="Masterclass Promo">
+
+  <button onclick="location.href='index.html'" style="
+  margin-top: 30px;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #00ccff;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  ">
+    ⬅ Back
+  </button>
+
+  <script>
+  const audio = document.getElementById("rickAudio");
+  const toggleBtn = document.getElementById("audioToggleBtn");
+
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play();
+      toggleBtn.textContent = "🔊 Sound ON";
+    } else {
+      audio.pause();
+      toggleBtn.textContent = "🔇 Sound OFF";
+    }
+  }
+
+  function showModal() {
+    const modal = document.getElementById("aiModal");
+    modal.style.display = "block";
+    setTimeout(() => modal.style.display = "none", 6000);
+  }
+</script>
+</body>
+</html>
