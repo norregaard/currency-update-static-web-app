@@ -42,13 +42,22 @@ jobs:
 
           mv dist .dist-temp
 
-          git fetch origin report-output-staging
+          git fetch origin
 
-          if git show-ref --verify --quiet refs/heads/report-output-staging; then
-            git switch report-output-staging
-            git reset --hard origin/report-output-staging
+          if git ls-remote --exit-code --heads origin report-output-staging; then
+            # Remote branch exists — check if we have a local version
+            if git show-ref --verify --quiet refs/heads/report-output-staging; then
+              # Local branch exists, switch and reset to remote
+              git switch report-output-staging
+              git reset --hard origin/report-output-staging
+            else
+              # Local branch doesn't exist, create it tracking remote
+              git switch -c report-output-staging origin/report-output-staging
+            fi
           else
-            git switch -c report-output-staging origin/report-output-staging
+            # Remote branch does not exist, create a fresh orphan branch
+            git switch --orphan report-output-staging
+            git rm -rf .  # Clean working directory completely
           fi
 
           git branch --show-current
