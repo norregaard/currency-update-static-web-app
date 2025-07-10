@@ -42,17 +42,22 @@ jobs:
           mv dist .dist-temp
 
           # Fetch the remote branch
-          git fetch origin report-output
+          git fetch origin
 
-          # Check if the local branch exists
-          if git show-ref --verify --quiet refs/heads/report-output; then
-            # If exists, switch to it
-            git switch report-output
-            # Reset local branch to remote (clean slate, includes deletions)
-            git reset --hard origin/report-output
+          if git ls-remote --exit-code --heads origin report-output; then
+            # Remote branch exists — check if we have a local version
+            if git show-ref --verify --quiet refs/heads/report-output; then
+              # Local branch exists, switch and reset to remote
+              git switch report-output
+              git reset --hard origin/report-output
+            else
+              # Local branch doesn't exist, create it tracking remote
+              git switch -c report-output origin/report-output
+            fi
           else
-            # Create local branch tracking remote branch
-            git switch -c report-output origin/report-output
+            # Remote branch does not exist, create a fresh orphan branch
+            git switch --orphan report-output
+            git rm -rf . --ignore-unmatch # Clean working directory completely
           fi
 
           # ✅ Confirm the current branch (for debugging/logging)
