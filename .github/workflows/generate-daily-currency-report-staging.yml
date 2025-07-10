@@ -1,4 +1,4 @@
-name: Generate Staging Currency Report
+name: Generate Daily Currency Report - Staging
 
 on:
   push:
