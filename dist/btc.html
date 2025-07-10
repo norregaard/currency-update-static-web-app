@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bitcoin Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    .price-table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #007aff;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>₿ Bitcoin Tracker</h2>
+
+    <table class="price-table" id="btc-prices">
+      <tr><td>USD</td><td>Loading...</td></tr>
+      <tr><td>DKK</td><td>Loading...</td></tr>
+      <tr><td>EUR</td><td>Loading...</td></tr>
+    </table>
+
+    <canvas id="btcChart"></canvas>
+
+    <div class="buttons">
+      <button onclick="location.href='index.html'">⬅ Back to Report</button>
+      <button onclick="refreshPage()">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <script>
+    async function loadBTCPrices() {
+      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,dkk,eur");
+      const data = await res.json();
+      const prices = data.bitcoin;
+
+      const table = document.getElementById("btc-prices");
+      table.innerHTML = `
+        <tr><td>USD</td><td>${prices.usd.toLocaleString("en-US", { style: "currency", currency: "USD" })}</td></tr>
+        <tr><td>DKK</td><td>${prices.dkk.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}</td></tr>
+        <tr><td>EUR</td><td>${prices.eur.toLocaleString("en-IE", { style: "currency", currency: "EUR" })}</td></tr>
+      `;
+    }
+
+    async function loadBTCChart() {
+      const res = await fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7");
+      const data = await res.json();
+
+      const labels = data.prices.map(p => {
+        const date = new Date(p[0]);
+        return `${date.getMonth() + 1}/${date.getDate()}`;
+      });
+
+      const prices = data.prices.map(p => p[1]);
+
+      const ctx = document.getElementById('btcChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'BTC Price (USD)',
+            data: prices,
+            borderColor: '#007aff',
+            fill: false,
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              ticks: {
+                callback: value => `$${value.toFixed(0)}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function refreshPage() {
+      location.reload();
+    }
+
+    // Initialize on load
+    loadBTCPrices();
+    loadBTCChart();
+  </script>
+</body>
+</html>
