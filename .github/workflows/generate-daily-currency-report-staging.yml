@@ -1,0 +1,77 @@
+name: Generate Daily Currency Report - Staging
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+jobs:
+  generate_report:
+    runs-on: ubuntu-latest
+    name: Generate HTML report into /dist
+    environment: staging
+
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v3
+        with:
+          ref: staging
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run generate_report.py
+        run: python scripts/generate_report.py
+        env:
+          METAL_API_KEY: ${{ secrets.METAL_API_KEY }}
+          TEST_MODE: "true"
+
+      - name: Commit and push /dist folder to report-output-staging branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          mv dist .dist-temp
+
+          git fetch origin
+
+          if git ls-remote --exit-code --heads origin report-output-staging; then
+            # Remote branch exists — check if we have a local version
+            if git show-ref --verify --quiet refs/heads/report-output-staging; then
+              # Local branch exists, switch and reset to remote
+              git switch report-output-staging
+              git reset --hard origin/report-output-staging
+            else
+              # Local branch doesn't exist, create it tracking remote
+              git switch -c report-output-staging origin/report-output-staging
+            fi
+          else
+            # Remote branch does not exist, create a fresh orphan branch
+            git switch --orphan report-output-staging
+            git rm -rf . --ignore-unmatch # Clean working directory completely
+          fi
+
+          git branch --show-current
+
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .dist-temp -exec rm -rf {} +
+
+          mv .dist-temp dist
+
+          git add dist/
+          git add -u
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "🧪 Update staging currency report"
+            git push origin report-output-staging
+          fi
