@@ -151,31 +151,41 @@ def build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, a
                     {rows}
                 </tbody>
             </table>
-                <div style="text-align: center; margin-top: 24px;">
-                <button onclick="location.href='crypto.html'" style="
-                    padding: 10px 16px;
-                    font-size: 16px;
-                    border-radius: 8px;
-                    border: none;
-                    background-color: #007aff;
-                    color: white;
-                    margin-right: 10px;
-                    cursor: pointer;
-                ">
-                    📈 Go to Crypto Tracker
-                </button>
-                <button onclick="location.reload()" style="
-                    padding: 10px 16px;
-                    font-size: 16px;
-                    border-radius: 8px;
-                    border: none;
-                    background-color: #007aff;
-                    color: white;
-                    cursor: pointer;
-                ">
-                    🔄 Refresh
-                </button>
+                <div style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                margin-top: 24px;
+            ">
+            <button onclick="location.href='crypto.html'" style="
+                padding: 10px 16px;
+                font-size: 16px;
+                border-radius: 8px;
+                border: none;
+                background-color: #007aff;
+                color: white;
+                cursor: pointer;
+                flex: 1 1 200px;
+                max-width: 250px;
+            ">
+                📈 Go to Crypto Tracker
+            </button>
+            <button onclick="location.reload()" style="
+                padding: 10px 16px;
+                font-size: 16px;
+                border-radius: 8px;
+                border: none;
+                background-color: #007aff;
+                color: white;
+                cursor: pointer;
+                flex: 1 1 200px;
+                max-width: 250px;
+            ">
+                🔄 Refresh
+            </button>
             </div>
+
 
             <img src="./Logo_jfn_github.png" alt="Logo" style="margin-top: 20px;">
             <p>Generated on {timestamp} CET by GitHub Actions.</p>
