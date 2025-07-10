@@ -2,8 +2,6 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-TEST_MODE = os.getenv("TEST_MODE", "false").lower() == "true"
-
 from datetime import datetime
 
 import requests
@@ -11,6 +9,8 @@ import yfinance as yf
 import os
 import shutil
 import pytz
+
+TEST_MODE = os.getenv("TEST_MODE", "false").lower() == "true"
 
 # ---------------------- DATA FETCHING FUNCTIONS ----------------------
 def get_exchange_rates():
