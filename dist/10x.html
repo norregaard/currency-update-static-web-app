@@ -2,88 +2,176 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>10X Your Life!</title>
+  <title>🚀 10X Your Life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(135deg, #ffdf00, #ff0080);
-      color: #000;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
       margin: 0;
       padding: 20px;
-      text-align: center;
-      animation: flash 4s infinite;
+      color: #222;
+      overflow-x: hidden;
     }
 
-    @keyframes flash {
-      0%, 100% { background-color: #fff000; }
-      50% { background-color: #ff80c0; }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-top: 20px;
-      text-shadow: 2px 2px #ff0000;
+      text-align: center;
+      font-size: 2em;
+      color: #007aff;
+      margin-bottom: 0.5em;
     }
 
     ul {
-      list-style: none;
-      padding: 0;
-      max-width: 700px;
-      margin: 30px auto;
+      padding-left: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     li {
-      font-size: 1.3em;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px auto;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #007aff;
+      color: white;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
       margin: 20px 0;
     }
 
-    button {
-      font-size: 1.2em;
-      padding: 14px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 10px;
-      background-color: #00cc66;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
+    .countdown {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 16px 0;
+      color: #b30000;
+      font-weight: bold;
     }
 
-    button:hover {
-      transform: scale(1.1);
-      background-color: #009944;
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 2s infinite;
     }
 
-    .thumbnail {
-      max-width: 90%;
-      margin: 30px auto;
-      box-shadow: 0 0 20px #000;
+    @keyframes sparkle {
+      0% {
+        transform: scale(0.5) translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5) translateY(-100px);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>💸 10X YOUR LIFE IN 10 EASY STEPS 💥</h1>
+  <div class="container">
+    <h1>🚀 10X Your Life Today!</h1>
 
-  <ul>
-    <li>🚀 Wake up at 4:44 AM — the universe notices hustle.</li>
-    <li>💰 Invest 100% of your net worth in altcoins you can't pronounce.</li>
-    <li>🧊 Cold shower. No exceptions. Ever.</li>
-    <li>🎥 Start a podcast. Doesn’t matter the topic. Just do it.</li>
-    <li>🧘 Microdose wisdom: meditate while trading NFTs.</li>
-    <li>📈 Say “bullish” 3x before breakfast.</li>
-    <li>🦍 Buy the dip. Then dip again. Then double dip.</li>
-    <li>🔥 Get banned from Twitter at least once a quarter.</li>
-    <li>☕ Replace coffee with pre-workout. Speak only in alpha.</li>
-    <li>🧑‍🚀 Visualize the moon. Then go there.</li>
-  </ul>
+    <div class="countdown" id="countdown">Offer expires in: --:--:--</div>
 
-  <img class="thumbnail" src="https://i.imgur.com/SOq3zo9.png" alt="Fake YouTube Thumbnail" />
+    <ul>
+      <li>💪 Wake up at 4:00 AM (preferably on a mountain)</li>
+      <li>📖 Read 5 books *before* breakfast (bonus if one is unreadable ancient philosophy)</li>
+      <li>🔥 Start 3 passive income streams before brushing your teeth</li>
+      <li>📈 Launch a course about launching courses</li>
+      <li>🧠 Meditate while trading crypto and doing cold exposure</li>
+      <li>🐺 Join a Discord server called “Alpha Wolf Pack”</li>
+      <li>🏖 Book a digital nomad retreat in Bali with 17 strangers and a whiteboard</li>
+    </ul>
 
-  <div>
-    <button onclick="alert('❌ Application Denied. You are too stable.')">✅ Apply for the 10X Lifestyle</button>
-    <button onclick="window.location.href='https://giphy.com/gifs/monkey-jet-ski-3o6Zt481isNVuQI1l6'">🏝️ Book Your Retreat</button>
-    <button onclick="window.location.href='index.html'">⬅ Back to Safety (Home)</button>
+    <div class="center">
+      <a class="btn" href="https://giphy.com/gifs/funny-monkey-jet-ski-9J7tdYltWyXIY" target="_blank">
+        🌊 Book Your Retreat
+      </a>
+
+      <a class="btn" href="index.html">
+        ⬅ Back to Report
+      </a>
+
+      <button class="btn" onclick="toggleMusic()">🎵 Toggle Sound</button>
+
+      <img src="lambo.jpeg" alt="Lambo life" />
+    </div>
   </div>
+
+  <!-- 🎶 Hidden music player -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- ✨ Sparkles -->
+  <script>
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = (window.innerHeight - 50) + 'px';
+      sparkle.style.animationDuration = (1 + Math.random()) + 's';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 2000);
+    }
+
+    setInterval(createSparkle, 400);
+
+    // 🎵 Music toggle
+    function toggleMusic() {
+      const audio = document.getElementById("bg-music");
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    // ⏱ Countdown logic (fake timer)
+    function startCountdown(duration) {
+      let remaining = duration;
+      const el = document.getElementById("countdown");
+      const update = () => {
+        const h = String(Math.floor(remaining / 3600)).padStart(2, '0');
+        const m = String(Math.floor((remaining % 3600) / 60)).padStart(2, '0');
+        const s = String(remaining % 60).padStart(2, '0');
+        el.textContent = `Offer expires in: ${h}:${m}:${s}`;
+        if (remaining > 0) remaining--;
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    startCountdown(3600); // 1 hour countdown
+  </script>
 </body>
 </html>

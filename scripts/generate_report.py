@@ -171,7 +171,7 @@ def build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, a
             ">
                 📈 Go to Crypto Tracker
             </button>
-            <button onclick="location.href='10x.html" style="
+            <button onclick="location.href='10x.html'" style="
                 padding: 10px 16px;
                 font-size: 16px;
                 border-radius: 8px;
