@@ -1,154 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>🚀 10X Your Life</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
+      font-family: 'Arial Black', Gadget, sans-serif;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: #fff;
       margin: 0;
       padding: 20px;
-      color: #222;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      position: relative;
-    }
-
-    h1 {
       text-align: center;
-      font-size: 2em;
-      color: #007aff;
-      margin-bottom: 0.5em;
     }
-
+    h1 {
+      font-size: 2.4rem;
+      color: #00ffcc;
+      text-shadow: 2px 2px 5px #000;
+    }
     ul {
-      padding-left: 20px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      list-style-type: none;
+      padding: 0;
+      font-size: 1.2rem;
     }
-
     li {
-      margin-bottom: 12px;
-    }
-
-    .btn {
-      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.3);
       margin: 10px auto;
-      padding: 12px 20px;
-      font-size: 16px;
+      padding: 12px;
+      max-width: 600px;
+      border-radius: 12px;
+      border: 2px solid #00ffcc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 14px 24px;
+      font-size: 1.1rem;
+      border-radius: 10px;
       border: none;
-      border-radius: 8px;
-      background-color: #007aff;
+      background-color: #ff0080;
       color: white;
       cursor: pointer;
-      text-align: center;
-      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
-
-    .center {
-      text-align: center;
+    #rickAudio {
+      display: none;
     }
-
     img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin: 20px 0;
+      max-width: 90%;
+      margin: 40px auto;
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffcc;
     }
-
-    .countdown {
-      font-size: 1.2rem;
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      color: #fff;
       text-align: center;
-      margin: 16px 0;
-      color: #b30000;
-      font-weight: bold;
-    }
-
-    .sparkle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: gold;
-      border-radius: 50%;
-      opacity: 0;
-      animation: sparkle 2s infinite;
-    }
-
-    @keyframes sparkle {
-      0% {
-        transform: scale(0.5) translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1.5) translateY(-100px);
-        opacity: 0;
-      }
+      padding-top: 20%;
+      font-size: 1.4rem;
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 10X Your Life Today!</h1>
+  <h1>🚀 10X Your Life: Ultimate Masterclass</h1>
+  <ul>
+    <li>Wake up at 3:59 AM — beat the sun into submission.</li>
+    <li>Cold showers build discipline. If you're not shivering, you're not living.</li>
+    <li>Your tears = preworkout. Drink them. Go harder.</li>
+    <li>Real men invest in DOGE before breakfast.</li>
+    <li>Pain is weakness leaving the body. Embrace it.</li>
+    <li>“Hawk Tuah!” — channel the meme energy into your gains 💦</li>
+    <li>What would Marcus Aurelius do? Conquer markets and your emotions.</li>
+    <li>Buy the dip. Sell your doubt. Repeat until alpha.</li>
+    <li>Read 12 books a day. Or pretend. Perception = reality.</li>
+    <li>If you didn’t get rich today, did you even hustle?</li>
+    <li>Every day is leg day, get those quads jacked!</li>
+  </ul>
 
-    <div class="countdown" id="countdown">Offer expires in: --:--:--</div>
+  <button onclick="toggleAudio()">🎵 Toggle Sound</button>
+  <button onclick="showModal()">🔥 Sign up for Master Class!</button>
 
-    <ul>
-      <li>💪 Wake up at 4:00 AM (preferably on a mountain)</li>
-      <li>📖 Read 5 books *before* breakfast (bonus if one is unreadable ancient philosophy)</li>
-      <li>🔥 Start 3 passive income streams before brushing your teeth</li>
-      <li>📈 Launch a course about launching courses</li>
-      <li>🧠 Meditate while trading crypto and doing cold exposure</li>
-      <li>🐺 Join a Discord server called “Alpha Wolf Pack”</li>
-      <li>🏖 Book a digital nomad retreat in Bali with 17 strangers and a whiteboard</li>
-    </ul>
-
-    <div class="center">
-      <a class="btn" href="https://giphy.com/gifs/funny-monkey-jet-ski-9J7tdYltWyXIY" target="_blank">
-        🌊 Book Your Retreat
-      </a>
-
-      <a class="btn" href="index.html">
-        ⬅ Back to Report
-      </a>
-
-      <button class="btn" onclick="toggleMusic()">🎵 Toggle Sound</button>
-
-      <img src="lambo.jpeg" alt="Lambo life" />
-    </div>
-  </div>
-
-  <!-- 🎶 Hidden music player -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
-    Your browser does not support the audio tag.
+  <audio id="rickAudio" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
   </audio>
 
-  <!-- ✨ Sparkles -->
+  <div class="modal" id="aiModal">
+    🤖 You have been evaluated by the AI Uber Bot.<br><br>
+    Verdict: <b>You are a weak, weak man.</b><br>
+    Application rejected.<br>
+    AI bot spits on it. 💦💢
+  </div>
+
+  <img src="./masterclass.png" alt="Masterclass Promo">
+
   <script>
-    function createSparkle() {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      sparkle.style.left = Math.random() * window.innerWidth + 'px';
-      sparkle.style.top = (window.innerHeight - 50) + 'px';
-      sparkle.style.animationDuration = (1 + Math.random()) + 's';
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 2000);
-    }
-
-    setInterval(createSparkle, 400);
-
-    // 🎵 Music toggle
-    function toggleMusic() {
-      const audio = document.getElementById("bg-music");
+    function toggleAudio() {
+      const audio = document.getElementById("rickAudio");
       if (audio.paused) {
         audio.play();
       } else {
@@ -156,22 +109,11 @@
       }
     }
 
-    // ⏱ Countdown logic (fake timer)
-    function startCountdown(duration) {
-      let remaining = duration;
-      const el = document.getElementById("countdown");
-      const update = () => {
-        const h = String(Math.floor(remaining / 3600)).padStart(2, '0');
-        const m = String(Math.floor((remaining % 3600) / 60)).padStart(2, '0');
-        const s = String(remaining % 60).padStart(2, '0');
-        el.textContent = `Offer expires in: ${h}:${m}:${s}`;
-        if (remaining > 0) remaining--;
-      };
-      update();
-      setInterval(update, 1000);
+    function showModal() {
+      const modal = document.getElementById("aiModal");
+      modal.style.display = "block";
+      setTimeout(() => modal.style.display = "none", 6000);
     }
-
-    startCountdown(3600); // 1 hour countdown
   </script>
 </body>
 </html>
