@@ -57,7 +57,7 @@ jobs:
           else
             # Remote branch does not exist, create a fresh orphan branch
             git switch --orphan report-output-staging
-            git rm -rf .  # Clean working directory completely
+            git rm -rf . --ignore-unmatch # Clean working directory completely
           fi
 
           git branch --show-current
