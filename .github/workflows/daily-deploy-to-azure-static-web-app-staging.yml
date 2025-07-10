@@ -1,4 +1,4 @@
-name: Deploy to Azure Static Web App (Staging)
+name: Deploy to Azure Static Web App - Staging
 
 on:
   workflow_run:
