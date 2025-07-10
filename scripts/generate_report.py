@@ -2,6 +2,8 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+TEST_MODE = os.getenv("TEST_MODE", "false").lower() == "true"
+
 from datetime import datetime
 
 import requests
@@ -32,6 +34,11 @@ def get_exchange_rates():
         raise Exception("Failed to get required exchange rates.")
 
 def get_xau_xag_to_dkk():
+
+    if TEST_MODE:
+        print("⚠️ Skipping metal API in test mode.")
+        return 20000, 200  # ← Dummy XAU and XAG values for testing
+
     api_key = os.getenv("METAL_API_KEY")
     if not api_key:
         print("❌ Missing METAL_API_KEY in environment.")
