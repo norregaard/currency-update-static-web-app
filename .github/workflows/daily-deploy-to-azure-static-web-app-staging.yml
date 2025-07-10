@@ -1,0 +1,31 @@
+name: Deploy to Azure Static Web App (Staging)
+
+on:
+  workflow_run:
+    workflows: ["Generate Daily Currency Report - Staging"]  # ✅ exact name match
+    types:
+      - completed
+  workflow_dispatch:  # Optional: manual trigger
+
+jobs:
+  deploy_staging_job:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    name: Deploy Dist Folder to Azure (Staging)
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: report-output-staging    # ✅ pull dist from staging output branch
+          submodules: true
+          lfs: false
+
+      - name: Deploy to Azure Static Web App (Staging)
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_GRASS_083573203 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "./dist"
+          api_location: ""
+          output_location: ""
