@@ -1,68 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>🛠️ Side Projects</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      font-family: 'Arial Black', Gadget, sans-serif;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.2rem;
-      color: #00ffcc;
-      text-shadow: 1px 1px 4px #000;
-    }
-    .project-list {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      max-width: 600px;
-      margin: 30px auto;
-    }
-    .card {
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 16px;
-      border-radius: 12px;
-      border: 2px solid #00ffcc;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    a {
-      text-decoration: none;
-      color: #00ffcc;
-      font-size: 1.3rem;
-    }
-    .desc {
-      font-size: 1rem;
-      color: #ccc;
-      margin-top: 6px;
-    }
-  </style>
-</head>
-<body>
-  <h1>🛠️ Side Projects</h1>
-  <div class="project-list" id="projects"></div>
 
-  <script>
-    fetch('side-projects.json')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("projects");
-        data.forEach(p => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `
+<head>
+    <meta charset="UTF-8" />
+    <title>🛠️ Side Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #00ffcc;
+            text-shadow: 1px 1px 4px #000;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #00ffcc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            text-decoration: none;
+            color: #00ffcc;
+            font-size: 1.3rem;
+        }
+
+        .desc {
+            font-size: 1rem;
+            color: #ccc;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🛠️ Side Projects</h1>
+    <div class="project-list" id="projects"></div>
+
+    <script>
+        fetch('side-projects.json')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById("projects");
+                data.forEach(p => {
+                    const div = document.createElement("div");
+                    div.className = "card";
+                    div.innerHTML = `
             <a href="${p.path}">${p.title}</a>
             <div class="desc">${p.description}</div>
           `;
-          container.appendChild(div);
-        });
-      });
-  </script>
+                    container.appendChild(div);
+                });
+            });
+    </script>
+    <button onclick="location.href='index.html'" style="
+  margin-top: 30px;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #00ccff;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  ">
+        ⬅ Back
+    </button>
 </body>
+
 </html>
