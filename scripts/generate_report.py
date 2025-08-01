@@ -15,7 +15,7 @@ TEST_MODE = os.getenv("TEST_MODE", "false").lower() == "true"
 # ---------------------- DATA FETCHING FUNCTIONS ----------------------
 def get_exchange_rates():
     url = "https://api.frankfurter.app/latest"
-    params = {"symbols": "USD,DKK,GBP"}
+    params = {"symbols": "USD,DKK,GBP,SEK"}
 
     response = requests.get(url, params=params)
     data = response.json()
@@ -24,12 +24,14 @@ def get_exchange_rates():
     eur_to_usd = rates.get("USD")
     eur_to_dkk = rates.get("DKK")
     eur_to_gbp = rates.get("GBP")
+    eur_to_sek = rates.get("SEK")
 
-    if eur_to_usd and eur_to_dkk and eur_to_gbp:
+    if eur_to_usd and eur_to_dkk and eur_to_gbp and eur_to_sek:
         usd_to_dkk = eur_to_dkk / eur_to_usd
         usd_to_gbp = eur_to_gbp / eur_to_usd
         gbp_to_dkk = eur_to_dkk / eur_to_gbp
-        return usd_to_dkk, usd_to_gbp, gbp_to_dkk
+        sek_to_dkk = eur_to_dkk / eur_to_sek
+        return usd_to_dkk, usd_to_gbp, gbp_to_dkk, sek_to_dkk
     else:
         raise Exception("Failed to get required exchange rates.")
 
@@ -82,10 +84,11 @@ cet = pytz.timezone("Europe/Copenhagen")
 timestamp = datetime.now(cet).strftime("%Y-%m-%d %H:%M CET") # ← YYYY-MM-DD in CET
 
 # ---------------------- HTML REPORT ----------------------
-def build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, acn_dkk, timestamp):
+def build_report_table_html(usd_to_dkk, gbp_to_dkk, sek_to_dkk, xau_dkk, xag_dkk, acn_usd, acn_dkk, timestamp):
     rows = f"""
         <tr><td>1 USD</td><td>{usd_to_dkk:.4f} DKK</td></tr>
         <tr><td>1 GBP</td><td>{gbp_to_dkk:.4f} DKK</td></tr>
+        <tr><td>1 SEK</td><td>{sek_to_dkk:.4f} DKK</td></tr>
         <tr><td>1 XAU (Gold)</td><td>{f"{xau_dkk:.2f} DKK" if xau_dkk else "N/A"}</td></tr>
         <tr><td>1 XAG (Silver)</td><td>{f"{xag_dkk:.2f} DKK" if xag_dkk else "N/A"}</td></tr>
         <tr><td>Accenture (ACN)</td><td>{f"{acn_usd:.2f} USD / {acn_dkk:.2f} DKK" if acn_usd and acn_dkk else "N/A"}</td></tr>
@@ -216,12 +219,12 @@ def save_report_files(html_content, logo_path, output_dir="dist"):
 if __name__ == "__main__":
     print("📡 Fetching market data...")
 
-    usd_to_dkk, _, gbp_to_dkk = get_exchange_rates()
+    usd_to_dkk, _, gbp_to_dkk, sek_to_dkk = get_exchange_rates()
     xau_dkk, xag_dkk = get_xau_xag_to_dkk()
     acn_usd, acn_dkk = get_accenture_stock_price(usd_to_dkk)
 
     # Generate HTML report
-    html_output = build_report_table_html(usd_to_dkk, gbp_to_dkk, xau_dkk, xag_dkk, acn_usd, acn_dkk, timestamp)
+    html_output = build_report_table_html(usd_to_dkk, gbp_to_dkk, sek_to_dkk, xau_dkk, xag_dkk, acn_usd, acn_dkk, timestamp)
     print("📧 Preview:\n", html_output)  # Optional for debugging
 
     # Save HTML and logo to dist/ directory
