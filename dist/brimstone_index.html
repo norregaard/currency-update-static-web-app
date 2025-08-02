@@ -33,6 +33,10 @@
     tr:hover {
       background-color: #1a1a1a;
     }
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     @media (max-width: 600px) {
       table, thead, tbody, th, td, tr {
         display: block;
@@ -60,6 +64,7 @@
 </head>
 <body>
   <h1>Brimstone Index</h1>
+  <div class="table-wrapper">
   <table id="stock-table">
     <thead>
       <tr>
@@ -77,6 +82,7 @@
     <tbody>
     </tbody>
   </table>
+  </div>
 
   <script>
     const apiKey = "606a81143c8f4828b52794e8e5599680";  // Replace with your Twelve Data API key
@@ -86,7 +92,7 @@
       { ticker: "NEE", company: "NextEra Energy", category: "Nuclear Energy", description: "Misunderstood atom-splitters. Feared by hippies, loved by engineers.", buyPrice: 72.00, shares: 13.89 },
       { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 460.00, shares: 4.35 },
       { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 60.00, shares: 16.67 },
-      { ticker: "BF-B", company: "Brown-Forman", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 60.00, shares: 16.67 },
+      { ticker: "BF.B", company: "Brown-Forman", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 60.00, shares: 16.67 },
       { ticker: "MGM", company: "MGM Resorts", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 42.00, shares: 23.81 }
     ];
 
