@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,12 +61,6 @@
     .summary span {
       font-weight: bold;
     }
-    .category {
-      color: #3498db;
-    }
-    .company {
-      color: #f39c12;
-    }
   </style>
 </head>
 <body>
@@ -119,7 +114,7 @@
         card.className = "card";
         card.innerHTML = `
           <div class="card-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
-            <h2><span class="category">${stock.category}:</span> <span class="company">${stock.company}</span></h2>
+            <h2>${stock.ticker} – ${stock.company}</h2>
             <span class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)} (${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</span>
           </div>
           <div class="card-body">
