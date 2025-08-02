@@ -25,29 +25,13 @@
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
+      align-items: center;
       cursor: pointer;
     }
-    .card-header .left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .card-header .right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      text-align: right;
-    }
-    .category {
-      color: #3498db;
-      font-size: 1em;
-      font-weight: bold;
-    }
-    .company {
+    .card-header h2 {
+      font-size: 1.1em;
+      margin: 0;
       color: #f39c12;
-      font-size: 0.95em;
     }
     .card-header span {
       font-size: 0.9em;
@@ -75,6 +59,12 @@
     }
     .summary span {
       font-weight: bold;
+    }
+    .category {
+      color: #3498db;
+    }
+    .company {
+      color: #f39c12;
     }
   </style>
 </head>
@@ -129,14 +119,8 @@
         card.className = "card";
         card.innerHTML = `
           <div class="card-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
-            <div class="left">
-              <div class="category">${stock.category}</div>
-              <div class="company">${stock.company}</div>
-            </div>
-            <div class="right">
-              <div class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</div>
-              <div class="${gainClass}">(${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</div>
-            </div>
+            <h2><span class="category">${stock.category}:</span> <span class="company">${stock.company}</span></h2>
+            <span class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)} (${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</span>
           </div>
           <div class="card-body">
             <p><strong>Category:</strong> ${stock.category}</p>
