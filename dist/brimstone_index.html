@@ -52,13 +52,28 @@
     .card-body p {
       margin: 0.3em 0;
     }
+    .summary, .description, .countdown {
+      margin-top: 2em;
+      text-align: center;
+      font-size: 1em;
+      color: #ccc;
+    }
+    .summary span {
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <h1>🔥 Brimstone Index</h1>
 
-  <!-- Collapsible Cards Only -->
   <div id="mobile-view"></div>
+  <div class="summary" id="summary"></div>
+  <div class="description">
+    <p><em>The Brimstone Index is a gentleman’s portfolio. No ESG. No safe spaces. Just seven salacious sectors that your wife's accountant wouldn’t dare touch — tobacco, oil, nuclear, booze, defense, gambling, and adult entertainment. It doesn't preach. It compounds. Running one full year from August 2025 to August 2026 — may the worst sins perform the best.</em></p>
+  </div>
+  <div class="countdown">
+    <p>⏳ Days remaining in the Brimstone experiment: <span id="days-left">365</span></p>
+  </div>
 
   <script>
     const apiKey = "606a81143c8f4828b52794e8e5599680";
@@ -81,6 +96,9 @@
 
     async function renderCards() {
       const mobileView = document.querySelector("#mobile-view");
+      const summary = document.getElementById("summary");
+      let totalGain = 0;
+      let totalValue = 0;
 
       for (const stock of stocks) {
         const currentPrice = await fetchPrice(stock.ticker);
@@ -88,6 +106,9 @@
         const gain = (currentPrice - stock.buyPrice) * stock.shares;
         const gainPct = ((currentPrice - stock.buyPrice) / stock.buyPrice) * 100;
         const gainClass = gain >= 0 ? 'gain' : 'loss';
+
+        totalGain += gain;
+        totalValue += value;
 
         const card = document.createElement("div");
         card.className = "card";
@@ -107,9 +128,24 @@
         `;
         mobileView.appendChild(card);
       }
+
+      summary.innerHTML = `
+        <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br>
+        <span class="${totalGain >= 0 ? 'gain' : 'loss'}">
+          Total Gain/Loss: ${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
+        </span>
+      `;
+    }
+
+    function renderCountdown() {
+      const endDate = new Date("2026-08-15");
+      const today = new Date();
+      const daysLeft = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
+      document.getElementById("days-left").textContent = daysLeft;
     }
 
     renderCards();
+    renderCountdown();
   </script>
 </body>
 </html>
