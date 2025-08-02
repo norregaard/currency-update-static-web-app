@@ -34,7 +34,11 @@ jobs:
         env:
           METAL_API_KEY: ${{ secrets.METAL_API_KEY }}
           TEST_MODE: "true"
-
+      
+      - name: Inject Twelve Data API Key into HTML
+        run: | 
+          sed -i "s/__TWELVE_API_KEY__/${{ secrets.TWELVE_API_KEY }}/g" dist/brimstone_index.html
+    
       - name: Commit and push /dist folder to report-output-staging branch
         run: |
           git config user.name "github-actions[bot]"

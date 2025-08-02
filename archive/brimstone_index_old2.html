@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brimstone Index</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 1em;
+      background-color: #111;
+      color: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+      color: #e74c3c;
+    }
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      padding: 1em;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .card-header h2 {
+      font-size: 1.1em;
+      margin: 0;
+      color: #f39c12;
+    }
+    .card-header span {
+      font-size: 0.9em;
+      color: #bbb;
+    }
+    .card-body {
+      display: none;
+      margin-top: 0.5em;
+      font-size: 0.9em;
+    }
+    .card-body p {
+      margin: 0.3em 0;
+    }
+    .gain {
+      color: #2ecc71;
+    }
+    .loss {
+      color: #e74c3c;
+    }
+    @media (min-width: 768px) {
+      .card {
+        display: none;
+      }
+      .table-wrapper {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+      }
+      th, td {
+        padding: 0.6em;
+        border-bottom: 1px solid #444;
+        text-align: center;
+      }
+      th {
+        background-color: #222;
+        color: #f39c12;
+      }
+      tr:hover {
+        background-color: #1a1a1a;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Brimstone Index</h1>
+
+  <!-- Mobile Cards -->
+  <div id="mobile-view"></div>
+
+  <!-- Desktop Table -->
+  <div class="table-wrapper">
+    <table id="stock-table">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Buy Price</th>
+          <th>Current Price</th>
+          <th>Shares</th>
+          <th>Value</th>
+          <th>Gain/Loss</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const apiKey = "__TWELVE_API_KEY__";
+    const stocks = [
+      { ticker: "BTI", company: "British American Tobacco", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 32.50, shares: 61.54 },
+      { ticker: "XOM", company: "ExxonMobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 108.00, shares: 18.52 },
+      { ticker: "NEE", company: "NextEra Energy", category: "Nuclear Energy", description: "Misunderstood atom-splitters. Feared by hippies, loved by engineers.", buyPrice: 72.00, shares: 13.89 },
+      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 460.00, shares: 4.35 },
+      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 60.00, shares: 16.67 },
+      { ticker: "BF.B", company: "Brown-Forman", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 60.00, shares: 16.67 },
+      { ticker: "MGM", company: "MGM Resorts", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 42.00, shares: 23.81 }
+    ];
+
+    async function fetchPrice(ticker) {
+      const url = `https://api.twelvedata.com/price?symbol=${ticker}&apikey=${apiKey}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      return parseFloat(data.price);
+    }
+
+    async function renderTable() {
+      const tbody = document.querySelector("#stock-table tbody");
+      const mobileView = document.querySelector("#mobile-view");
+
+      for (const stock of stocks) {
+        const currentPrice = await fetchPrice(stock.ticker);
+        const value = currentPrice * stock.shares;
+        const gain = (currentPrice - stock.buyPrice) * stock.shares;
+        const gainClass = gain >= 0 ? 'gain' : 'loss';
+
+        // Desktop row
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${stock.ticker}</td>
+          <td>${stock.company}</td>
+          <td>${stock.category}</td>
+          <td>${stock.description}</td>
+          <td>$${stock.buyPrice.toFixed(2)}</td>
+          <td>$${currentPrice.toFixed(2)}</td>
+          <td>${stock.shares.toFixed(2)}</td>
+          <td>$${value.toFixed(2)}</td>
+          <td class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+
+        // Mobile card
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+            <h2>${stock.ticker} – ${stock.company}</h2>
+            <span class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</span>
+          </div>
+          <div class="card-body">
+            <p><strong>Category:</strong> ${stock.category}</p>
+            <p><strong>Description:</strong> ${stock.description}</p>
+            <p><strong>Buy Price:</strong> $${stock.buyPrice.toFixed(2)}</p>
+            <p><strong>Current Price:</strong> $${currentPrice.toFixed(2)}</p>
+            <p><strong>Shares:</strong> ${stock.shares.toFixed(2)}</p>
+            <p><strong>Value:</strong> $${value.toFixed(2)}</p>
+          </div>
+        `;
+        mobileView.appendChild(card);
+      }
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>
