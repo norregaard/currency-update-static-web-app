@@ -121,8 +121,7 @@
       overflow: hidden;
     }
 
-    .flip-card .top,
-    .flip-card .bottom {
+    .flip-card .top {
       position: absolute;
       width: 100%;
       height: 50%;
@@ -130,6 +129,14 @@
       justify-content: center;
       align-items: center;
       background: #111;
+    }
+
+    .flip-card .bottom {
+      display: none; /* Remove from layout completely */
+    }
+
+    .flip-animate .bottom {
+      display: flex; /* Show during flip animation */
     }
 
     .flip-card .top {
@@ -197,7 +204,7 @@
     ];
 
     const watchlistStocks = [
-      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 60.00, shares: 0 }
+      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 34.79, shares: 14 }
     ];
 
     const spyBuyPrice = 627.97; // Today's SPY price for baseline calculation
@@ -284,8 +291,8 @@
       const bottomEl = document.getElementById("days-bottom");
 
       if (topEl.textContent != daysLeft) {
+        bottomEl.textContent = topEl.textContent; // old number for animation start
         topEl.textContent = daysLeft;
-        bottomEl.textContent = daysLeft;
         topEl.classList.add("flip-animate");
         setTimeout(() => topEl.classList.remove("flip-animate"), 700);
       }
