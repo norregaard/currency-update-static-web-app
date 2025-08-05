@@ -1,4 +1,4 @@
-<!-- Updated Brimstone Index with S&P 500 Baseline and $ currency labels -->
+<!-- Updated Brimstone Index with top image -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +12,15 @@
       padding: 1em;
       background-color: #111;
       color: #f5f5f5;
+      margin: 0;
     }
 
-    h1 {
-      text-align: center;
-      color: #e74c3c;
+    .header-image {
+      width: 100%;
+      max-width: 1000px;
+      display: block;
+      margin: 0 auto 1em auto;
+      height: auto;
     }
 
     .section-title {
@@ -129,11 +133,19 @@
       background: #111;
       border-radius: 6px;
     }
+
+    @media (max-width: 600px) {
+      .flip-card {
+        font-size: 2em;
+        width: 90px;
+        height: 100px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <h1>🔥 Brimstone Index</h1>
+  <img src="Brimstone_image.png" alt="Brimstone Index" class="header-image" />
 
   <div id="main-portfolio"></div>
   <div class="summary" id="summary"></div>
@@ -170,7 +182,7 @@
       { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 34.79, shares: 14 }
     ];
 
-    const spyBuyPrice = 627.97; // Today's SPY price for baseline calculation
+    const spyBuyPrice = 627.97;
 
     async function fetchPrice(ticker) {
       const url = `https://api.twelvedata.com/price?symbol=${ticker}&apikey=${apiKey}`;
