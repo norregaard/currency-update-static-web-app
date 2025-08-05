@@ -1,4 +1,4 @@
-<!-- Updated Brimstone Index with S&P 500 Baseline and $ currency labels -->
+<!-- Updated Brimstone Index with S&P 500 Baseline -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,7 +153,7 @@
               <div class="company">${stock.company}</div>
             </div>
             <div class="right">
-              <div class="${gainClass}">$${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</div>
+              <div class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</div>
               <div class="${gainClass}">(${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</div>
             </div>
           </div>
@@ -181,10 +181,10 @@
         summary.innerHTML = `
           <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br>
           <span class="${totalGain >= 0 ? 'gain' : 'loss'}">
-            Total Gain/Loss: $${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
+            Total Gain/Loss: ${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
           </span><br>
           <span class="${spyGain >= 0 ? 'gain' : 'loss'}">
-            S&P 500 Baseline Gain/Loss: $${spyGain >= 0 ? '+' : ''}${spyGain.toFixed(2)}
+            S&P 500 Baseline Gain/Loss: ${spyGain >= 0 ? '+' : ''}${spyGain.toFixed(2)}
           </span>
         `;
       }
