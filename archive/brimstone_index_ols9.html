@@ -113,25 +113,61 @@
       font-size: 3em;
       color: #00ff88;
       font-weight: bold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      line-height: 1;
+      padding: 0;
       width: 120px;
       height: 140px;
+      position: relative;
+      overflow: hidden;
     }
 
     .flip-card .top {
+      position: absolute;
       width: 100%;
-      height: 100%;
+      height: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       background: #111;
-      border-radius: 6px;
+    }
+
+    .flip-card .bottom {
+      display: none; /* Remove from layout completely */
+    }
+
+    .flip-animate .bottom {
+      display: flex; /* Show during flip animation */
+    }
+
+    .flip-card .top {
+      top: 0;
+      border-bottom: 2px solid #222;
+    }
+
+    .flip-card .bottom {
+      bottom: 0;
+      border-top: 2px solid #222;
+    }
+
+    .flip-animate {
+      animation: flip 0.7s ease forwards;
+    }
+
+    @keyframes flip {
+      0% {
+        transform: rotateX(0);
+      }
+
+      50% {
+        transform: rotateX(-90deg);
+      }
+
+      100% {
+        transform: rotateX(0);
+      }
     }
   </style>
 </head>
-
 <body>
   <h1>🔥 Brimstone Index</h1>
 
@@ -145,9 +181,10 @@
     <p><em>The Brimstone Index is a gentleman’s portfolio. No ESG. Just seven salacious sectors that your wife's accountant wouldn’t dare touch — tobacco, oil, nuclear, booze, defense, gambling, and adult entertainment. It doesn't preach. It compounds. Running one full year from August 2025 to August 2026 — may the worst sins perform the best.</em></p>
   </div>
   <div class="countdown">
-    <div class="flip-clock">
+    <div class="flip-clock" id="flip-clock">
       <div class="flip-card">
         <div class="top" id="days-top">365</div>
+        <div class="bottom" id="days-bottom">365</div>
       </div>
     </div>
     <p>⏳ Days remaining in the Brimstone experiment</p>
@@ -225,6 +262,7 @@
       }
 
       if (includeInSummary) {
+        // S&P 500 baseline calculation
         const spyCurrentPrice = await fetchPrice("SPY");
         const spyShares = totalInvested / spyBuyPrice;
         const spyValue = spyShares * spyCurrentPrice;
@@ -248,8 +286,18 @@
       const endDate = new Date("2026-08-06");
       const today = new Date();
       const daysLeft = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
-      document.getElementById("days-top").textContent = daysLeft;
+
+      const topEl = document.getElementById("days-top");
+      const bottomEl = document.getElementById("days-bottom");
+
+      if (topEl.textContent != daysLeft) {
+        bottomEl.textContent = topEl.textContent; // old number for animation start
+        topEl.textContent = daysLeft;
+        topEl.classList.add("flip-animate");
+        setTimeout(() => topEl.classList.remove("flip-animate"), 700);
+      }
     }
+
 
     renderSection(portfolioStocks, "main-portfolio", true);
     renderSection(watchlistStocks, "watchlist", false);
