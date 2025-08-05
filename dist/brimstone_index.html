@@ -101,18 +101,18 @@
 
   <script>
     const apiKey = "606a81143c8f4828b52794e8e5599680";
-    const portfolioStocks = [
-      { ticker: "BTI", company: "British American Tobacco", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 32.50, shares: 61.54 },
-      { ticker: "XOM", company: "ExxonMobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 108.00, shares: 18.52 },
-      { ticker: "NEE", company: "NextEra Energy", category: "Nuclear Energy", description: "Misunderstood atom-splitters. Feared by hippies, loved by engineers.", buyPrice: 72.00, shares: 13.89 },
-      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 460.00, shares: 4.35 },
-      { ticker: "BF.B", company: "Brown-Forman", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 60.00, shares: 16.67 },
-      { ticker: "MGM", company: "MGM Resorts", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 42.00, shares: 23.81 },
-      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 50.00, shares: 20.00 }
+   const portfolioStocks = [
+      { ticker: "CEG", company: "Constellation Energy", category: "Nuclear Energy", description: "Pure-play U.S. nuclear generation giant with a fleet powering millions.", buyPrice: 345.40, shares: 2 },
+      { ticker: "BTI", company: "British American Tobacco ADR", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 55.91, shares: 9 },
+      { ticker: "XOM", company: "Exxon Mobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 107.45, shares: 4 },
+      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 34.09, shares: 14 },
+      { ticker: "MGM", company: "MGM Resorts International", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 35.35, shares: 14 },
+      { ticker: "BF.B", company: "Brown-Forman B", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 30.61, shares: 16 },
+      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 428.50, shares: 1 }
     ];
 
     const watchlistStocks = [
-      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 60.00, shares: 16.67 }
+      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 34.40, shares: 14 }
     ];
 
     async function fetchPrice(ticker) {
@@ -177,10 +177,11 @@
     }
 
     function renderCountdown() {
-      const endDate = new Date("2026-08-15");
-      const today = new Date();
-      const daysLeft = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
-      document.getElementById("days-left").textContent = daysLeft;
+    const startDate = new Date("2025-08-06");
+    const endDate = new Date("2026-08-06");
+    const today = new Date();
+    const daysLeft = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
+    document.getElementById("days-left").textContent = daysLeft;
     }
 
     renderSection(portfolioStocks, "main-portfolio", true);
