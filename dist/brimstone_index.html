@@ -147,14 +147,16 @@
 <body>
   <img src="Brimstone_image.png" alt="Brimstone Index" class="header-image" />
 
+  <div class="description">
+    <p>If numbers below do not load properly, wait 60 seconds and refresh the page</p>
+  </div>
+
   <div id="main-portfolio"></div>
   <div class="summary" id="summary"></div>
 
-  <div class="section-title">👀 Watchlist (Not Owned)</div>
-  <div id="watchlist"></div>
 
   <div class="description">
-    <p><em>The Brimstone Index is a gentleman’s portfolio. No ESG. Just seven salacious sectors that your wife's accountant wouldn’t dare touch — tobacco, oil, nuclear, booze, defense, gambling, and adult entertainment. It doesn't preach. It compounds. Running one full year from August 2025 to August 2026 — may the worst sins perform the best.</em></p>
+    <p><em>The Brimstone Index is a gentleman’s portfolio. No ESG. Just seven salacious sectors that your wife's accountant wouldn’t dare touch — tobacco, oil, nuclear, booze, defense, gambling, and adult entertainment. It doesn't preach. It compounds. Will run for one full year from August 6, 2025 to August 6, 2026, then everything will be sold. May the worst sins perform the best.</em></p>
   </div>
   <div class="countdown">
     <div class="flip-clock">
@@ -169,17 +171,13 @@
     const apiKey = "606a81143c8f4828b52794e8e5599680";
 
     const portfolioStocks = [
-      { ticker: "CEG", company: "Constellation Energy", category: "Nuclear Energy", description: "Pure-play U.S. nuclear generation giant with a fleet powering millions.", buyPrice: 345.40, shares: 2 },
-      { ticker: "BTI", company: "British American Tobacco ADR", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 55.91, shares: 9 },
-      { ticker: "XOM", company: "Exxon Mobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 107.45, shares: 4 },
-      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 34.09, shares: 14 },
-      { ticker: "MGM", company: "MGM Resorts International", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 35.35, shares: 14 },
-      { ticker: "BF.B", company: "Brown-Forman B", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 30.61, shares: 16 },
-      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 428.50, shares: 1 }
-    ];
-
-    const watchlistStocks = [
-      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 34.79, shares: 14 }
+      { ticker: "CEG", company: "Constellation Energy", category: "Nuclear Energy", description: "Pure-play U.S. nuclear generation giant with a fleet powering millions.", buyPrice: 34.62, shares: 2 },
+      { ticker: "BTI", company: "British American Tobacco ADR", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 56.54, shares: 9 },
+      { ticker: "XOM", company: "Exxon Mobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 108.40, shares: 4 },
+      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 33.43, shares: 14 },
+      { ticker: "MGM", company: "MGM Resorts International", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 35.09, shares: 14 },
+      { ticker: "BF.B", company: "Brown-Forman B", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 30.54, shares: 16 },
+      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 428.05, shares: 1 }
     ];
 
     const spyBuyPrice = 627.97;
@@ -264,7 +262,6 @@
     }
 
     renderSection(portfolioStocks, "main-portfolio", true);
-    renderSection(watchlistStocks, "watchlist", false);
     renderCountdown();
     setInterval(renderCountdown, 1000 * 60 * 60 * 24);
   </script>
