@@ -157,7 +157,7 @@
 
 
   <div class="description">
-    <p><em>Initial investment is ~3500 USD (acquired on August 6, 2025). Gain/loss are tracked above, as well as the S&P500 assuming the full amount had been invested there instead (which likely would have been better idea..)</em></p>
+    <p><em>Initial investment is 3505 USD (acquired on August 6, 2025). Gain/loss are tracked above, as well as the S&P500 assuming the full amount had been invested there instead (which likely would have been better idea..)</em></p>
   </div>
   <div class="description">
     ⏳ Days remaining in the Brimstone experiment:
@@ -246,10 +246,10 @@
 
         const summary = document.getElementById("summary");
         summary.innerHTML = `
-          <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br>
+          <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br><br>
           <span class="${totalGain >= 0 ? 'gain' : 'loss'}">
             Total Gain/Loss: $${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
-          </span><br>
+          </span><br><br>
           <span class="${spyGain >= 0 ? 'gain' : 'loss'}">
             S&P 500 Baseline Gain/Loss: $${spyGain >= 0 ? '+' : ''}${spyGain.toFixed(2)}
           </span>
@@ -305,6 +305,7 @@
       }
     });
   </script>
+  <br><br><br>
 
 </body>
 </html>
