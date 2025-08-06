@@ -1,6 +1,7 @@
-<!-- Updated Brimstone Index with Watchlist -->
+<!-- Updated Brimstone Index with top image -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,11 +12,17 @@
       padding: 1em;
       background-color: #111;
       color: #f5f5f5;
+      margin: 0;
     }
-    h1 {
-      text-align: center;
-      color: #e74c3c;
+
+    .header-image {
+      width: 100%;
+      max-width: 1000px;
+      display: block;
+      margin: 0 auto 1em auto;
+      height: auto;
     }
+
     .section-title {
       text-align: center;
       margin-top: 2em;
@@ -24,6 +31,7 @@
       border-top: 1px solid #333;
       padding-top: 1em;
     }
+
     .card {
       background-color: #1a1a1a;
       border: 1px solid #444;
@@ -31,6 +39,7 @@
       margin-bottom: 1em;
       padding: 1em;
     }
+
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -38,82 +47,144 @@
       flex-wrap: wrap;
       cursor: pointer;
     }
+
     .card-header .left {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
+
     .card-header .right {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       text-align: right;
     }
+
     .category {
       color: #3498db;
       font-size: 1em;
       font-weight: bold;
     }
+
     .company {
       color: #f39c12;
       font-size: 0.95em;
     }
+
     .gain {
       color: #2ecc71;
     }
+
     .loss {
       color: #e74c3c;
     }
+
     .card-body {
       display: none;
       margin-top: 0.5em;
       font-size: 0.9em;
     }
+
     .card-body p {
       margin: 0.3em 0;
     }
-    .summary, .description, .countdown {
+
+    .summary,
+    .description,
+    .countdown {
       margin-top: 2em;
       text-align: center;
       font-size: 1em;
       color: #ccc;
     }
+
     .summary span {
       font-weight: bold;
     }
+
+    .flip-clock {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .flip-card {
+      background: #000;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      font-size: 3em;
+      color: #00ff88;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 120px;
+      height: 140px;
+    }
+
+    .flip-card .top {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .flip-card {
+        font-size: 2em;
+        width: 90px;
+        height: 100px;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <h1>🔥 Brimstone Index</h1>
+  <img src="Brimstone_image.png" alt="Brimstone Index" class="header-image" />
+
+  <div class="description">
+    <p>The Brimstone Index is a delicious and sinful portfolio. It rejects everything ESG and goes for the gains in areas that require you to wear big-boy-pants. Booze, guns, nuclear, and gambling - the worse, the better! <br>Extremely little due diligence springled with a dose of AI have been the strategy for choosing these stocks - but that's exactly what they won't expect. Stay unpredictable, get rich! (it's science)
+        <br>This experiment runs for one year from August 6, 2025 to August 6, 2026 and real money has been invested, ~3500 USD in total. <br><br>Note, if data doesn't load properly, wait 60 seconds and refresh the page.</p>
+  </div>
 
   <div id="main-portfolio"></div>
   <div class="summary" id="summary"></div>
 
-  <div class="section-title">👀 Watchlist (Not Owned)</div>
-  <div id="watchlist"></div>
 
   <div class="description">
-    <p><em>The Brimstone Index is a gentleman’s portfolio. No ESG. Just seven salacious sectors that your wife's accountant wouldn’t dare touch — tobacco, oil, nuclear, booze, defense, gambling, and adult entertainment. It doesn't preach. It compounds. Running one full year from August 2025 to August 2026 — may the worst sins perform the best.</em></p>
+    <p><em>Initial investment is 3505 USD (acquired on August 6, 2025). Gain/loss are tracked above, as well as the S&P500 assuming the full amount had been invested there instead (which likely would have been better idea..)</em></p>
+  </div>
+  <div class="description">
+    ⏳ Days remaining in the Brimstone experiment:
   </div>
   <div class="countdown">
-    <p>⏳ Days remaining in the Brimstone experiment: <span id="days-left">365</span></p>
+    <div class="flip-clock">
+      <div class="flip-card">
+        <div class="top" id="days-top">365</div>
+      </div>
+    </div>
+    
   </div>
 
   <script>
     const apiKey = "__TWELVE_API_KEY__";
+
     const portfolioStocks = [
-      { ticker: "BTI", company: "British American Tobacco", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 32.50, shares: 61.54 },
-      { ticker: "XOM", company: "ExxonMobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 108.00, shares: 18.52 },
-      { ticker: "NEE", company: "NextEra Energy", category: "Nuclear Energy", description: "Misunderstood atom-splitters. Feared by hippies, loved by engineers.", buyPrice: 72.00, shares: 13.89 },
-      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 460.00, shares: 4.35 },
-      { ticker: "BF.B", company: "Brown-Forman", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 60.00, shares: 16.67 },
-      { ticker: "MGM", company: "MGM Resorts", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 42.00, shares: 23.81 },
-      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 50.00, shares: 20.00 }
+      { ticker: "CEG", company: "Constellation Energy", category: "Nuclear Energy", description: "Pure-play U.S. nuclear generation giant with a fleet powering millions.", buyPrice: 343.62, shares: 2 },
+      { ticker: "BTI", company: "British American Tobacco ADR", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 56.54, shares: 9 },
+      { ticker: "XOM", company: "Exxon Mobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 108.40, shares: 4 },
+      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 33.43, shares: 14 },
+      { ticker: "MGM", company: "MGM Resorts International", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 35.09, shares: 14 },
+      { ticker: "BF.B", company: "Brown-Forman B", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 30.54, shares: 16 },
+      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 428.05, shares: 1 }
     ];
 
-    const watchlistStocks = [
-      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 60.00, shares: 16.67 }
-    ];
+    const spyBuyPrice = 627.97;
 
     async function fetchPrice(ticker) {
       const url = `https://api.twelvedata.com/price?symbol=${ticker}&apikey=${apiKey}`;
@@ -126,6 +197,7 @@
       const container = document.getElementById(containerId);
       let totalGain = 0;
       let totalValue = 0;
+      let totalInvested = 0;
 
       for (const stock of stocks) {
         const currentPrice = await fetchPrice(stock.ticker);
@@ -137,6 +209,7 @@
         if (includeInSummary) {
           totalGain += gain;
           totalValue += value;
+          totalInvested += stock.buyPrice * stock.shares;
         }
 
         const card = document.createElement("div");
@@ -148,7 +221,7 @@
               <div class="company">${stock.company}</div>
             </div>
             <div class="right">
-              <div class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</div>
+              <div class="${gainClass}">$${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</div>
               <div class="${gainClass}">(${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</div>
             </div>
           </div>
@@ -166,26 +239,73 @@
       }
 
       if (includeInSummary) {
+        const spyCurrentPrice = await fetchPrice("SPY");
+        const spyShares = totalInvested / spyBuyPrice;
+        const spyValue = spyShares * spyCurrentPrice;
+        const spyGain = spyValue - totalInvested;
+
         const summary = document.getElementById("summary");
         summary.innerHTML = `
-          <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br>
+          <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br><br>
           <span class="${totalGain >= 0 ? 'gain' : 'loss'}">
-            Total Gain/Loss: ${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
+            Total Gain/Loss: $${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
+          </span><br><br>
+          <span class="${spyGain >= 0 ? 'gain' : 'loss'}">
+            S&P 500 Baseline Gain/Loss: $${spyGain >= 0 ? '+' : ''}${spyGain.toFixed(2)}
           </span>
         `;
       }
     }
 
     function renderCountdown() {
-      const endDate = new Date("2026-08-15");
+      const startDate = new Date("2025-08-06");
+      const endDate = new Date("2026-08-06");
       const today = new Date();
       const daysLeft = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
-      document.getElementById("days-left").textContent = daysLeft;
+      document.getElementById("days-top").textContent = daysLeft;
     }
 
     renderSection(portfolioStocks, "main-portfolio", true);
-    renderSection(watchlistStocks, "watchlist", false);
     renderCountdown();
+    setInterval(renderCountdown, 1000 * 60 * 60 * 24);
   </script>
+    
+  <div class="description" style="margin-top: 2em; text-align: center;">
+    <a href="#" id="doc-link" style="color: #3498db; text-decoration: underline;">
+      📄 Documentation: Buy Order
+    </a>
+  </div>
+  
+  <div id="doc-modal" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center; overflow: auto; -webkit-overflow-scrolling: touch;">
+    <div style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+      <span id="doc-close" style="position: absolute; top: 5px; right: 15px; color: white; font-size: 2em; cursor: pointer; z-index: 10000;">&times;</span>
+      <img id="doc-img" src="buy-order-2025.08.06.png" alt="Buy Order Screenshot"
+          style="max-width: 90vw; max-height: 90vh; width: auto; height: auto; border: 2px solid white; touch-action: pinch-zoom;">
+    </div>
+  </div>
+
+  <script>
+    const docLink = document.getElementById("doc-link");
+    const docModal = document.getElementById("doc-modal");
+    const docClose = document.getElementById("doc-close");
+
+    docLink.addEventListener("click", function(e) {
+      e.preventDefault();
+      docModal.style.display = "flex";
+    });
+
+    docClose.addEventListener("click", function() {
+      docModal.style.display = "none";
+    });
+
+    docModal.addEventListener("click", function(e) {
+      if (e.target === docModal) {
+        docModal.style.display = "none";
+      }
+    });
+  </script>
+  <br><br><br>
+
 </body>
 </html>

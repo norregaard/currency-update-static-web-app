@@ -1,0 +1,206 @@
+<!-- Updated Brimstone Index with S&P 500 Baseline -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brimstone Index</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 1em;
+      background-color: #111;
+      color: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+      color: #e74c3c;
+    }
+    .section-title {
+      text-align: center;
+      margin-top: 2em;
+      font-size: 1.2em;
+      color: #f5f5f5;
+      border-top: 1px solid #333;
+      padding-top: 1em;
+    }
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      padding: 1em;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      cursor: pointer;
+    }
+    .card-header .left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .card-header .right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+    }
+    .category {
+      color: #3498db;
+      font-size: 1em;
+      font-weight: bold;
+    }
+    .company {
+      color: #f39c12;
+      font-size: 0.95em;
+    }
+    .gain {
+      color: #2ecc71;
+    }
+    .loss {
+      color: #e74c3c;
+    }
+    .card-body {
+      display: none;
+      margin-top: 0.5em;
+      font-size: 0.9em;
+    }
+    .card-body p {
+      margin: 0.3em 0;
+    }
+    .summary, .description, .countdown {
+      margin-top: 2em;
+      text-align: center;
+      font-size: 1em;
+      color: #ccc;
+    }
+    .summary span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔥 Brimstone Index</h1>
+
+  <div id="main-portfolio"></div>
+  <div class="summary" id="summary"></div>
+
+  <div class="section-title">👀 Watchlist (Not Owned)</div>
+  <div id="watchlist"></div>
+
+  <div class="description">
+    <p><em>The Brimstone Index is a gentleman’s portfolio. No ESG. Just seven salacious sectors that your wife's accountant wouldn’t dare touch — tobacco, oil, nuclear, booze, defense, gambling, and adult entertainment. It doesn't preach. It compounds. Running one full year from August 2025 to August 2026 — may the worst sins perform the best.</em></p>
+  </div>
+  <div class="countdown">
+    <p>⏳ Days remaining in the Brimstone experiment: <span id="days-left">365</span></p>
+  </div>
+
+  <script>
+    const apiKey = "__TWELVE_API_KEY__";
+
+    const portfolioStocks = [
+      { ticker: "CEG", company: "Constellation Energy", category: "Nuclear Energy", description: "Pure-play U.S. nuclear generation giant with a fleet powering millions.", buyPrice: 345.40, shares: 2 },
+      { ticker: "BTI", company: "British American Tobacco ADR", category: "Tobacco", description: "Nicotine profits from a legacy of addiction — globally addictive and legally entrenched.", buyPrice: 55.91, shares: 9 },
+      { ticker: "XOM", company: "Exxon Mobil", category: "Fossil Fuels", description: "Powering the planet and melting the poles. A dividend-dripping carbon cannon.", buyPrice: 107.45, shares: 4 },
+      { ticker: "RGR", company: "Sturm Ruger & Co", category: "Guns", description: "Handcrafted American heat. Because nothing says safety like a dividend-paying firearm.", buyPrice: 34.09, shares: 14 },
+      { ticker: "MGM", company: "MGM Resorts International", category: "Gambling", description: "Vegas-born profit machine. Where hope is monetized, and the house always wins.", buyPrice: 35.35, shares: 14 },
+      { ticker: "BF.B", company: "Brown-Forman B", category: "Alcohol", description: "Bourbon royalty. Fuel for the party and the hangover.", buyPrice: 30.61, shares: 16 },
+      { ticker: "LMT", company: "Lockheed Martin", category: "Defense", description: "Builders of billion-dollar boomsticks. Making peace through superior firepower.", buyPrice: 428.50, shares: 1 }
+    ];
+
+    const watchlistStocks = [
+      { ticker: "RICK", company: "RCI Hospitality Holdings", category: "Adult", description: "America’s publicly traded strip club empire. Unapologetically lust-driven cash flow.", buyPrice: 60.00, shares: 0 }
+    ];
+
+    const spyBuyPrice = 627.97; // Today's SPY price for baseline calculation
+
+    async function fetchPrice(ticker) {
+      const url = `https://api.twelvedata.com/price?symbol=${ticker}&apikey=${apiKey}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      return parseFloat(data.price);
+    }
+
+    async function renderSection(stocks, containerId, includeInSummary = true) {
+      const container = document.getElementById(containerId);
+      let totalGain = 0;
+      let totalValue = 0;
+      let totalInvested = 0;
+
+      for (const stock of stocks) {
+        const currentPrice = await fetchPrice(stock.ticker);
+        const value = currentPrice * stock.shares;
+        const gain = (currentPrice - stock.buyPrice) * stock.shares;
+        const gainPct = ((currentPrice - stock.buyPrice) / stock.buyPrice) * 100;
+        const gainClass = gain >= 0 ? 'gain' : 'loss';
+
+        if (includeInSummary) {
+          totalGain += gain;
+          totalValue += value;
+          totalInvested += stock.buyPrice * stock.shares;
+        }
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+            <div class="left">
+              <div class="category">${stock.category}</div>
+              <div class="company">${stock.company}</div>
+            </div>
+            <div class="right">
+              <div class="${gainClass}">${gain >= 0 ? '+' : ''}${gain.toFixed(2)}</div>
+              <div class="${gainClass}">(${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Ticker:</strong> ${stock.ticker}</p>
+            <p><strong>Category:</strong> ${stock.category}</p>
+            <p><strong>Description:</strong> ${stock.description}</p>
+            <p><strong>Buy Price:</strong> $${stock.buyPrice.toFixed(2)}</p>
+            <p><strong>Current Price:</strong> $${currentPrice.toFixed(2)}</p>
+            <p><strong>Shares:</strong> ${stock.shares.toFixed(2)}</p>
+            <p><strong>Value:</strong> $${value.toFixed(2)}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      }
+
+      if (includeInSummary) {
+        // S&P 500 baseline calculation
+        const spyCurrentPrice = await fetchPrice("SPY");
+        const spyShares = totalInvested / spyBuyPrice;
+        const spyValue = spyShares * spyCurrentPrice;
+        const spyGain = spyValue - totalInvested;
+
+        const summary = document.getElementById("summary");
+        summary.innerHTML = `
+          <span>Total Portfolio Value:</span> $${totalValue.toFixed(2)}<br>
+          <span class="${totalGain >= 0 ? 'gain' : 'loss'}">
+            Total Gain/Loss: ${totalGain >= 0 ? '+' : ''}${totalGain.toFixed(2)}
+          </span><br>
+          <span class="${spyGain >= 0 ? 'gain' : 'loss'}">
+            S&P 500 Baseline Gain/Loss: ${spyGain >= 0 ? '+' : ''}${spyGain.toFixed(2)}
+          </span>
+        `;
+      }
+    }
+
+    function renderCountdown() {
+      const startDate = new Date("2025-08-06");
+      const endDate = new Date("2026-08-06");
+      const today = new Date();
+      const daysLeft = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
+      document.getElementById("days-left").textContent = daysLeft;
+    }
+
+    renderSection(portfolioStocks, "main-portfolio", true);
+    renderSection(watchlistStocks, "watchlist", false);
+    renderCountdown();
+  </script>
+</body>
+</html>
