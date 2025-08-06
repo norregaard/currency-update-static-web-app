@@ -269,5 +269,42 @@
     renderCountdown();
     setInterval(renderCountdown, 1000 * 60 * 60 * 24);
   </script>
+    
+  <div class="description" style="margin-top: 2em; text-align: center;">
+    <a href="#" id="doc-link" style="color: #3498db; text-decoration: underline;">
+      📄 Documentation: Buy Order
+    </a>
+  </div>
+  
+  <div id="doc-modal" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center; overflow: auto; -webkit-overflow-scrolling: touch;">
+    <div style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+      <span id="doc-close" style="position: absolute; top: 5px; right: 15px; color: white; font-size: 2em; cursor: pointer; z-index: 10000;">&times;</span>
+      <img id="doc-img" src="buy-order-2025.08.06.png" alt="Buy Order Screenshot"
+          style="max-width: 90vw; max-height: 90vh; width: auto; height: auto; border: 2px solid white; touch-action: pinch-zoom;">
+    </div>
+  </div>
+
+  <script>
+    const docLink = document.getElementById("doc-link");
+    const docModal = document.getElementById("doc-modal");
+    const docClose = document.getElementById("doc-close");
+
+    docLink.addEventListener("click", function(e) {
+      e.preventDefault();
+      docModal.style.display = "flex";
+    });
+
+    docClose.addEventListener("click", function() {
+      docModal.style.display = "none";
+    });
+
+    docModal.addEventListener("click", function(e) {
+      if (e.target === docModal) {
+        docModal.style.display = "none";
+      }
+    });
+  </script>
+
 </body>
 </html>
