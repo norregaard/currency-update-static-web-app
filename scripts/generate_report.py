@@ -205,7 +205,7 @@ def build_report_table_html(usd_to_dkk, gbp_to_dkk, sek_to_dkk, xau_dkk, xag_dkk
 
 
             <img src="./Logo_jfn_github.png" alt="Logo" style="margin-top: 20px;">
-            <p>Generated on {timestamp} CET by GitHub Actions.</p>
+            <p style="font-size: 0.9rem;">Generated on {timestamp} by GitHub Actions.</p>
             
         </div>
     </body>
